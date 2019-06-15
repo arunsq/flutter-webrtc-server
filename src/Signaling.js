@@ -121,7 +121,17 @@ export default class Signaling extends events.EventEmitter {
 
     getLocalStream = (type) => {
         return new Promise((pResolve, pReject) => {
-            var constraints = { audio: true, video: (type === 'video') ? { width: 1280, height: 720 } : false };
+            var constraints = {
+                audio: true,
+                video: {
+                    mandatory: { minAspectRatio: 1.333, maxAspectRatio: 1.334 },
+                    optional: [
+                        { minFrameRate: 60 },
+                        { maxWidth: 640 },
+                        { maxHeigth: 480 }
+                    ]
+                }
+            };
             var that = this;
             navigator.mediaDevices.getUserMedia(constraints)
                 .then(function (mediaStream) {
