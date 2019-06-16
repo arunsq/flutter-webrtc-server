@@ -1,1 +1,0 @@
-web: "npm-run-all --parallel run-server run-webpack-dev-server"
